@@ -66,8 +66,9 @@
   @media(max-width:760px){.nav-links{display:none}.nav-cta{margin-left:auto}}
 
   /* hero */
-  .hero{padding:72px 0 76px}
-  .hero-in{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:center}
+  .hero{padding:72px 0 76px;position:relative;overflow:hidden}
+  #waves{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.9;pointer-events:none}
+  .hero-in{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
   @media(max-width:880px){.hero-in{grid-template-columns:1fr;gap:34px}}
   .hero h1{margin-top:16px}
   .hero .lead{margin-top:20px}
@@ -75,15 +76,26 @@
   .hero-trust{margin-top:26px;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
   .hero-trust .dot{width:8px;height:8px;border-radius:50%;background:var(--good);flex:0 0 auto;box-shadow:0 0 0 4px rgba(46,139,96,.15)}
 
-  .hero-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:var(--sh)}
-  .hc-label{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
-  .hc-row{display:flex;align-items:baseline;gap:14px;margin-top:16px;flex-wrap:wrap}
-  .hc-was{font-size:26px;font-weight:700;color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line-strong)}
-  .hc-arrow{color:var(--accent-deep);font-weight:800;font-size:22px}
-  .hc-now{font-size:44px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
-  .hc-save{margin-top:16px;display:inline-flex;align-items:center;gap:8px;background:var(--accent-soft);color:var(--accent-deep);
-    font-weight:700;font-size:15px;padding:9px 15px;border-radius:99px}
-  .hc-note{margin-top:16px;color:var(--muted);font-size:14.5px}
+  .est{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--sh)}
+  .est-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:4px}
+  .est h3{font-size:15px;font-weight:700}
+  .toggle{display:inline-flex;background:var(--bg-alt);border:1px solid var(--line);border-radius:9px;padding:3px}
+  .toggle button{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;border:0;background:transparent;color:var(--muted);padding:6px 11px;border-radius:6px;cursor:pointer;font-weight:600}
+  .toggle button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:var(--sh-sm)}
+  .est-label{font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-top:16px}
+  .est-amt{font-size:clamp(32px,5vw,42px);font-weight:800;letter-spacing:-.02em;margin-top:8px;font-variant-numeric:tabular-nums}
+  .est-amt .cur{color:var(--muted);font-size:.6em;vertical-align:.08em}
+  .est-sub{font-size:13px;color:var(--muted);margin-top:8px}
+  .est-bar{height:9px;border-radius:99px;background:var(--bg-alt);margin:18px 0 4px;overflow:hidden;position:relative}
+  .est-bar span{position:absolute;inset:0 auto 0 0;border-radius:99px;background:var(--accent);transition:width .25s ease}
+  .slider-row{margin-top:20px}
+  .slider-row .lr{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:9px}
+  .slider-row .lr b{color:var(--ink);font-weight:700}
+  .est input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:99px;background:var(--bg-alt);outline:none}
+  .est input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--accent);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.2);cursor:pointer}
+  .est input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent);border:3px solid #fff;cursor:pointer}
+  .est input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+  .est-fine{font-size:11.5px;color:var(--muted);margin-top:16px;line-height:1.45}
 
   /* generic head */
   .head{max-width:640px;margin-bottom:46px}
@@ -174,9 +186,9 @@
   .mobibar a.primary{background:var(--accent);color:#231803}
   @media(max-width:760px){.mobibar{display:flex}body{padding-bottom:74px}}
 
-  .reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
-  .reveal.in{opacity:1;transform:none}
-  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+  .js .reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+  .js .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}}
 </style>
 
 <div class="topbar">
@@ -214,6 +226,7 @@
 <main id="top">
   <!-- HERO -->
   <section class="hero">
+    <canvas id="waves" aria-hidden="true"></canvas>
     <div class="wrap hero-in">
       <div>
         <span class="eyebrow">15+ years inside the carriers — now on your side</span>
@@ -225,15 +238,23 @@
         </div>
         <div class="hero-trust"><span class="dot"></span> No savings, no fee · You keep 100% of what you save</div>
       </div>
-      <div class="hero-card reveal">
-        <div class="hc-label">A typical result</div>
-        <div class="hc-row">
-          <span class="hc-was">$210/mo</span>
-          <span class="hc-arrow">→</span>
-          <span class="hc-now">$150<small style="font-size:20px;font-weight:700;color:var(--muted)">/mo</small></span>
+      <div class="est reveal" id="estimator">
+        <div class="est-top">
+          <h3>Savings estimator</h3>
+          <div class="toggle" role="group" aria-label="Account type">
+            <button id="tHome" aria-pressed="true">Household</button>
+            <button id="tBiz" aria-pressed="false">Business</button>
+          </div>
         </div>
-        <div class="hc-save">You keep about $720 a year</div>
-        <div class="hc-note">Same coverage. Same phones. A smaller bill.</div>
+        <div class="est-label">Estimated first-year savings</div>
+        <div class="est-amt"><span class="cur">$</span><span id="lowAmt">0</span><span style="color:var(--muted)"> – </span><span class="cur">$</span><span id="highAmt">0</span></div>
+        <div class="est-sub" id="estSub">Based on a typical 15–30% cut on wireless spend.</div>
+        <div class="est-bar"><span id="estFill" style="width:22%"></span></div>
+        <div class="slider-row">
+          <div class="lr"><span>Current monthly bill</span><b id="billOut">$180 / mo</b></div>
+          <input type="range" id="bill" min="50" max="3000" step="10" value="180" aria-label="Current monthly wireless bill">
+        </div>
+        <p class="est-fine">Estimate only — your real number depends on lines, usage, and current plans. A free estimate gives you the exact figure.</p>
       </div>
     </div>
   </section>
@@ -386,6 +407,76 @@
 
 <script>
 (function(){
+  document.documentElement.classList.add('js');
+
+  /* SAVINGS ESTIMATOR */
+  var bill=document.getElementById('bill');
+  if(bill){
+    var billOut=document.getElementById('billOut'),
+        low=document.getElementById('lowAmt'), high=document.getElementById('highAmt'),
+        fill=document.getElementById('estFill'), sub=document.getElementById('estSub'),
+        tHome=document.getElementById('tHome'), tBiz=document.getElementById('tBiz');
+    var mode='home';
+    function fmt(n){ return Math.round(n).toLocaleString('en-US'); }
+    function calc(){
+      var m=+bill.value;
+      var lo = mode==='home'?0.15:0.18, hi = mode==='home'?0.30:0.35;
+      var annual=m*12;
+      low.textContent=fmt(annual*lo);
+      high.textContent=fmt(annual*hi);
+      billOut.textContent='$'+fmt(m)+' / mo';
+      fill.style.width=((lo+hi)/2*100).toFixed(0)+'%';
+      sub.textContent = mode==='home'
+        ? 'Based on a typical 15–30% cut for households.'
+        : 'Based on a typical 18–35% cut for business accounts.';
+    }
+    bill.addEventListener('input',calc);
+    function setMode(m){
+      mode=m;
+      tHome.setAttribute('aria-pressed', m==='home');
+      tBiz.setAttribute('aria-pressed', m==='biz');
+      if(m==='biz' && +bill.value<300){ bill.value=600; }
+      calc();
+    }
+    tHome.addEventListener('click',function(){setMode('home');});
+    tBiz.addEventListener('click',function(){setMode('biz');});
+    calc();
+  }
+
+  /* HERO WAVES */
+  var cv=document.getElementById('waves'), ctx=cv&&cv.getContext('2d');
+  if(ctx){
+    var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var dpr=Math.min(window.devicePixelRatio||1,2), W=0,H=0, origin={x:0,y:0}, rings=[], maxR=0;
+    function resize(){
+      W=cv.clientWidth; H=cv.clientHeight;
+      cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+      origin.x = W>880 ? W*0.80 : W*0.9;
+      origin.y = W>880 ? H*0.44 : H*0.16;
+      maxR=Math.hypot(W,H)*0.9;
+      if(!rings.length){ for(var i=0;i<7;i++){ rings.push(i*(maxR/7)); } }
+    }
+    resize(); addEventListener('resize',resize);
+    function frame(){
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<rings.length;i++){
+        rings[i]+=0.35;
+        if(rings[i]>maxR) rings[i]=0;
+        var t=rings[i]/maxR, alpha=(1-t)*0.12;
+        ctx.beginPath();
+        ctx.arc(origin.x,origin.y,rings[i],0,Math.PI*2);
+        ctx.strokeStyle = (i%3===0) ? 'rgba(231,161,58,1)' : 'rgba(120,140,165,1)';
+        ctx.globalAlpha=alpha; ctx.lineWidth=1.2; ctx.stroke();
+      }
+      ctx.globalAlpha=0.85; ctx.beginPath();
+      ctx.arc(origin.x,origin.y,4,0,Math.PI*2);
+      ctx.fillStyle='rgba(231,161,58,1)'; ctx.fill();
+      ctx.globalAlpha=1;
+      if(!reduce) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
   /* FORM → Google Sheet (bill upload saved to Drive) */
   var SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbzljt5_a29FBi7UMrosIGTFEpEJWBQ8eMCxX0UMB6t_jEdbmE1u_-Xy1iuN72yWCEoB/exec";
   var MAX_BILL_BYTES = 12 * 1024 * 1024;
