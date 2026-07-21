@@ -131,6 +131,10 @@
   .btn-pay:hover{border-color:var(--accent);color:var(--accent-deep);transform:translateY(-1px)}
   .btn-pay svg{flex:0 0 auto}
   .pay-note{margin-top:10px;font-size:12px;color:var(--muted)}
+  .pay-unlock{margin-top:4px;padding:20px;border:1px solid #DBE1FF;background:var(--accent-soft);border-radius:13px;text-align:center}
+  .pay-unlock-h{font-weight:800;font-size:16px;margin-bottom:13px}
+  .pay-unlock .btn{width:100%}
+  .pay-unlock-note{font-size:12px;color:var(--muted);margin-top:11px;line-height:1.5}
   .guarantee-line{max-width:640px;margin:34px auto 0;text-align:center;background:var(--accent-soft);border:1px solid #DBE1FF;
     border-radius:14px;padding:20px 26px;color:var(--ink)}
   .guarantee-line b{color:var(--accent-deep)}
@@ -371,6 +375,11 @@
         </div>
         <button class="btn btn-primary" type="submit" style="width:100%">Get my free estimate</button>
         <p class="form-note" id="formNote">Free, no obligation. You only pay to unlock the offers.</p>
+        <div id="payUnlock" class="pay-unlock" hidden>
+          <div class="pay-unlock-h">Ready to unlock your offers?</div>
+          <a id="payLink" class="btn btn-primary" href="#" target="_blank" rel="noopener">Pay your fee · PayPal</a>
+          <div class="pay-unlock-note">Your estimate is free. Pay the one-time fee only when you're ready to unlock every offer I found for you.</div>
+        </div>
       </form>
     </div>
   </section>
@@ -524,8 +533,14 @@
       }
       btn.textContent='Estimate requested ✓';
       btn.style.background='var(--good)'; btn.style.color='#fff'; btn.style.borderColor='var(--good)';
-      note.textContent="Thanks, "+name.split(' ')[0]+" — got your bill. I'll shop your quotes and be in touch with your free estimate soon.";
+      note.textContent="Thanks, "+name.split(' ')[0]+" — got your bill. I'll shop your quotes and send your free estimate soon.";
       note.style.color='var(--muted)';
+      // reveal the pay option, tailored to account type
+      var t=document.getElementById('ftype').value;
+      var pay=document.getElementById('payUnlock'), payLink=document.getElementById('payLink');
+      if(/business/i.test(t)){ payLink.href='https://www.paypal.com/paypalme/EthanFuhrmeister/199'; payLink.textContent='Pay $199 · PayPal'; }
+      else { payLink.href='https://www.paypal.com/paypalme/EthanFuhrmeister/49.99'; payLink.textContent='Pay $49.99 · PayPal'; }
+      pay.hidden=false;
     }
 
     if(file){
