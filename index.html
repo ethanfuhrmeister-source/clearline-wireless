@@ -147,8 +147,9 @@
   .head p{margin-top:16px}
 
   /* steps */
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
-  @media(max-width:820px){.steps{grid-template-columns:1fr}}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:s}
+  @media(max-width:980px){.steps{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.steps{grid-template-columns:1fr}}
   .step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;position:relative}
   .step .num{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--accent-ink);display:flex;align-items:center;gap:10px;margin-bottom:16px}
   .step .num::before{counter-increment:s;content:counter(s,decimal-leading-zero)}
@@ -279,6 +280,9 @@
   .field input,.field select,.field textarea{font-family:var(--sans);font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:9px;padding:12px 13px;width:100%}
   .field textarea{resize:vertical;min-height:88px}
   .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+  .field input[type=file]{padding:11px 13px;cursor:pointer;background:var(--surface-2);border-style:dashed}
+  .field input[type=file]::file-selector-button{font-family:var(--sans);font-weight:600;font-size:13px;color:#231803;background:var(--accent);border:0;border-radius:7px;padding:8px 13px;margin-right:12px;cursor:pointer}
+  .field .hint-sm{font-size:12px;color:var(--faint);margin-top:2px}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media(max-width:520px){.two{grid-template-columns:1fr}}
   .contact-side h2{margin-bottom:18px}
@@ -359,7 +363,7 @@
     </nav>
     <div class="nav-cta">
       <button class="theme-btn" id="themeToggle" aria-label="Toggle color theme" title="Toggle theme">◑</button>
-      <a class="btn btn-primary" href="#contact">Get a free audit</a>
+      <a class="btn btn-primary" href="#contact">Get a free estimate</a>
     </div>
   </div>
 </header>
@@ -374,7 +378,7 @@
         <h1 style="margin-top:16px">I spent 15 years selling wireless. Now I <em>save you</em> from it.</h1>
         <p class="lead">I sold for Verizon, T-Mobile, AT&amp;T, and Spectrum. I know the fine print they count on you skipping, the fees that quietly renew, and the discounts reps never mention. Now I use all of it to cut your bill — because I don't work for them anymore.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#contact">Get a free bill audit</a>
+          <a class="btn btn-primary" href="#contact">Get a free estimate</a>
           <a class="btn btn-ghost" href="#how">See how it works</a>
         </div>
         <div class="hero-trust"><span class="dot"></span> Ex-carrier insider · No savings, no fee · You risk nothing</div>
@@ -421,24 +425,29 @@
     <div class="wrap">
       <div class="head reveal">
         <span class="eyebrow">How it works</span>
-        <h2>Three steps. No carrier sales pitch.</h2>
-        <p class="lead">You send me a recent bill. I do the digging. You decide what to change — or nothing at all.</p>
+        <h2>Free to find out. Pay only to unlock.</h2>
+        <p class="lead">Send your bill, I do the digging, you see what you'll save — and you only pay the flat fee when you want the actual offers in hand.</p>
       </div>
       <div class="steps">
         <div class="step reveal">
           <div class="num"><i></i></div>
-          <h3>Send me your bill</h3>
-          <p>Upload or text a photo of one recent statement and tell me how you actually use your phones — hotspot, travel, streaming, the works. That's the whole intake.</p>
+          <h3>Submit your bill</h3>
+          <p>Upload your latest statement right on the site and tell me how you use your phones. Two minutes, free, no obligation.</p>
         </div>
         <div class="step reveal">
           <div class="num"><i></i></div>
           <h3>I shop every carrier</h3>
-          <p>I compare the big networks and the MVNOs that run on them, stack every discount you qualify for, and flag charges you shouldn't be paying.</p>
+          <p>By hand across Verizon, T-Mobile, AT&amp;T, Spectrum and the MVNOs — stacking every discount and flagging charges you shouldn't be paying.</p>
         </div>
         <div class="step reveal">
           <div class="num"><i></i></div>
-          <h3>You get a plain-English plan</h3>
-          <p>A one-page report: what to switch to, what it costs, what you save, and exactly how to make the change. Zero jargon, no pressure.</p>
+          <h3>See what you'll save</h3>
+          <p>I come back with your free estimate: how much I can cut and how many offers I found. No cost to get this far.</p>
+        </div>
+        <div class="step reveal">
+          <div class="num"><i></i></div>
+          <h3>Unlock all your offers</h3>
+          <p>Pay the flat fee and I hand over every offer in full — exact plans, prices, and how to switch. Waived if I can't beat your bill.</p>
         </div>
       </div>
     </div>
@@ -674,12 +683,12 @@
   <section id="contact" class="contact">
     <div class="wrap contact-in">
       <div class="contact-side reveal">
-        <span class="eyebrow">Free bill audit</span>
-        <h2 style="margin-top:14px">Send one bill. See what you're leaving on the table.</h2>
-        <p class="lead">Tell me a little about your setup and I'll come back with a no-obligation read on where the savings are. Households usually hear back within a day.</p>
+        <span class="eyebrow">Free estimate</span>
+        <h2 style="margin-top:14px">Submit your bill. See what you'll save — free.</h2>
+        <p class="lead">Upload your latest statement and I'll shop every carrier by hand, then come back with your free estimate. You only pay the flat fee if you want the full offers unlocked — and nothing at all if I can't beat your bill.</p>
         <div class="textbill">
           <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-          <div><b>Hate forms? Just text a photo of your bill.</b><p>Snap your latest statement and send it to <a href="sms:+17869758245?&body=Hi,%20I'd%20like%20a%20free%20wireless%20bill%20audit.">(786) 975-8245</a> — I'll take it from there.</p></div>
+          <div><b>Prefer to text it over?</b><p>Snap your latest statement and send it to <a href="sms:+17869758245?&body=Hi,%20I'd%20like%20a%20free%20wireless%20estimate.">(786) 975-8245</a> instead — either way works.</p></div>
         </div>
         <div class="cinfo">
           <a href="mailto:hello@clearlinewireless.example">
@@ -716,8 +725,13 @@
           <label for="fmsg">Roughly what are you paying now?</label>
           <textarea id="fmsg" name="message" placeholder="e.g. 4 lines, about $210/mo, two of us travel for work…"></textarea>
         </div>
-        <button class="btn btn-primary" type="submit" style="justify-content:center">Request my free audit</button>
-        <p class="form-note" id="formNote">No spam, no obligation. One bill, one honest answer.</p>
+        <div class="field">
+          <label for="fbill">Upload your latest bill</label>
+          <input id="fbill" name="bill" type="file" accept="image/*,application/pdf,.pdf">
+          <span class="hint-sm">PDF or photo. This is what I shop your quotes against.</span>
+        </div>
+        <button class="btn btn-primary" type="submit" style="justify-content:center">Get my free estimate</button>
+        <p class="form-note" id="formNote">Free, no obligation. You only pay to unlock the offers.</p>
       </form>
     </div>
   </section>
@@ -795,26 +809,59 @@
   var SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyrW8wqX6Rc0meqO0qoIeCAVnRton4kGK74bwYjgmU-l1ldnO1i5iCbYyUO_GO_qICG/exec";
 
   var form=document.getElementById('auditForm'), note=document.getElementById('formNote');
+  var MAX_BILL_BYTES = 12 * 1024 * 1024; // 12 MB cap
+
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var name=document.getElementById('fname').value.trim();
     var email=document.getElementById('femail').value.trim();
     if(!name||!/.+@.+\..+/.test(email)){
-      note.textContent='Add your name and a valid email so I can send your audit back.';
+      note.textContent='Add your name and a valid email so I can send your estimate back.';
+      note.style.color='var(--accent-ink)';
+      return;
+    }
+    var fileInput=document.getElementById('fbill');
+    var file=fileInput && fileInput.files && fileInput.files[0];
+    if(file && file.size>MAX_BILL_BYTES){
+      note.textContent='That file is over 12 MB — try a photo or a compressed PDF.';
       note.style.color='var(--accent-ink)';
       return;
     }
     var btn=form.querySelector('button');
     btn.disabled=true; btn.textContent='Sending…';
-    var data=new FormData(form);
-    data.append('source','Website');
-    if(SHEET_ENDPOINT.indexOf('http')===0){
-      fetch(SHEET_ENDPOINT,{method:'POST',body:data,mode:'no-cors'}).catch(function(){});
+
+    function send(bill){
+      var params=new URLSearchParams();
+      params.append('name', name);
+      params.append('email', email);
+      params.append('type', document.getElementById('ftype').value);
+      params.append('message', document.getElementById('fmsg').value);
+      params.append('source', 'Website');
+      if(bill){
+        params.append('fileName', bill.name);
+        params.append('fileType', bill.type);
+        params.append('fileData', bill.data);
+      }
+      if(SHEET_ENDPOINT.indexOf('http')===0){
+        fetch(SHEET_ENDPOINT,{method:'POST',body:params,mode:'no-cors'}).catch(function(){});
+      }
+      btn.textContent='Estimate requested ✓';
+      btn.style.background='var(--good)';
+      note.textContent="Thanks, "+name.split(' ')[0]+" — got your bill. I'll shop your quotes and be in touch with your free estimate soon.";
+      note.style.color='var(--muted)';
     }
-    btn.textContent='Request received ✓';
-    btn.style.background='var(--good)';
-    note.textContent="Thanks, "+name.split(' ')[0]+" — got it. I'll be in touch soon.";
-    note.style.color='var(--muted)';
+
+    if(file){
+      var reader=new FileReader();
+      reader.onload=function(){
+        var b64=String(reader.result).split(',')[1]||'';
+        send({name:file.name, type:file.type||'application/octet-stream', data:b64});
+      };
+      reader.onerror=function(){ send(null); };
+      reader.readAsDataURL(file);
+    } else {
+      send(null);
+    }
   });
 
   /* REVEAL */
